@@ -1,0 +1,27 @@
+# Read about `build.yaml` at https://pub.dev/packages/build_config
+targets:
+  $default:
+    builders:
+      source_gen|combining_builder:
+        options:
+          ignore_for_file:
+          - lines_longer_than_80_chars
+          - text_direction_code_point_in_literal
+          - inference_failure_on_function_invocation
+          - inference_failure_on_collection_literal
+          - unnecessary_this
+          - non_constant_identifier_names
+          - constant_identifier_names
+
+      dart_simdjson:
+        generate_for:
+        - test/schemas/*
+
+builders:
+  dart_simdjson:
+    import: "package:dart_simdjson/builder.dart"
+    builder_factories: ["fromJsonBytesBuilder"]
+    build_extensions: {".dart": ["from_json_bytes.g.part"]}
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: ["source_gen|combining_builder"]

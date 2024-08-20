@@ -1,0 +1,25 @@
+# Run with `dart pub run ffigen --config ffigen.yaml`.
+name: CApiBindings
+description: |
+  Bindings for `src/capi.h`.
+
+  Regenerate bindings with `flutter pub run ffigen --config ffigen.yaml`.
+output: 'lib/src/generated/capi.dart'
+headers:
+  entry-points:
+    - 'src/capi.h'
+  include-directives:
+    - 'src/capi.h'
+preamble: |
+  // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
+  // for details. All rights reserved. Use of this source code is governed by a
+  // BSD-style license that can be found in the LICENSE file.
+comments:
+  style: any
+  length: full
+functions:
+  leaf:
+    include:
+      - 'simdjson_descriptor_create_object'
+      - 'simdjson_parse'
+ffi-native:
